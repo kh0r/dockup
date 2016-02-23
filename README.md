@@ -43,14 +43,16 @@ AWS_DEFAULT_REGION=us-east-1
 BACKUP_NAME=mysql
 PATHS_TO_BACKUP=/etc/mysql /var/lib/mysql
 S3_BUCKET_NAME=docker-backups.example.com
+GPG_KEY_NAME=<name_of_public_key_here>
+GPG_PUBLIC_KEY=<public_key_here>
 RESTORE=false
 ```
 
-`dockup` will use your AWS credentials to create a new bucket with name as per the environment variable `S3_BUCKET_NAME`, or if not defined, using the default name `docker-backups.example.com`. The paths in `PATHS_TO_BACKUP` will be tarballed, gzipped, time-stamped and uploaded to the S3 bucket.
+`dockup` will use your AWS credentials to create a new bucket with name as per the environment variable `S3_BUCKET_NAME`, or if not defined, using the default name `docker-backups.example.com`. The paths in `PATHS_TO_BACKUP` will be tarballed, gzipped, time-stamped, encrypted and uploaded to the S3 bucket.
 
 
 ## Restore
-To restore your data simply set the `RESTORE` environment variable to `true` - this will restore the latest backup from S3 to your volume.
+To restore your data simply set `GPG_PRIVATE_KEY` to the according private key and set the `RESTORE` environment variable to `true` - this will restore the latest backup from S3 to your volume.
 
 
 ## A note on Buckets
